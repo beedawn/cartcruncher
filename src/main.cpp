@@ -14,6 +14,7 @@
  ********************************************************************************************/
 
 #include "raylib.h"
+#include "Character/Character.h"
 #include <cmath>
 
 //------------------------------------------------------------------------------------
@@ -38,7 +39,7 @@ int main(void)
 	Vector2 bottomRight = {rightWall, bottomWall};
 	Vector2 center = {(float)(screenWidth / 4), (float)(screenHeight / 2) + (screenHeight / 4)};
 	Vector2 ballPosition = topLeft;
-
+	Character mainCharacter = Character(topLeft);
 	SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 					  //--------------------------------------------------------------------------------------
 	Color ballColor = MAROON;
@@ -49,111 +50,101 @@ int main(void)
 	bool inputAllowed = true;
 	float cooldownTimer = 0;
 	float cooldownTime = 1.0f;
+	Texture2D characterTexture = LoadTexture("resources/char2.png");
+	// Define which part of the texture to draw (first frame, 32x32 pixels)
+	Rectangle charSpriteFrame = {0.0f, 0.0f, 32, 32};
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
 	{
+		//******** CAN DELETE ALL THIS */
+				// if (ballPosition.y < 800)
+				// {
+				// 	ballPosition.y += gravity;
+				// }
+				// if (ballPosition.y > 800)
+				// {
+				// 	ballPosition.y -= 1;
+				// }
+				// if (ballPosition.y > 800)
+				// {
+				// 	ballPosition.y -= 1;
+				// }
+				// if (ballPosition.y < 400)
+				// {
+				// 	ballPosition.y += 1;
+				// }
 
-		// Update
-		//----------------------------------------------------------------------------------
-		if (ballPosition.y < 800)
-		{
-			ballPosition.y += gravity;
-		}
-		if (ballPosition.y > 800)
-		{
-			ballPosition.y -= 1;
-		}
-		if (ballPosition.y > 800)
-		{
-			ballPosition.y -= 1;
-		}
-		if(ballPosition.y<400)
-		{
-			ballPosition.y += 1;
-		}
+				// if (ballPosition.x < 0)
+				// {
+				// 	ballPosition.x += 1;
+				// }
+				// if (cooldownTimer > 0)
+				// {
+				// 	cooldownTimer -= GetFrameTime(); // GetFrameTime() returns seconds passed this frame
+				// 	if (cooldownTimer < 0)
+				// 		cooldownTimer = 0;
+				// }
+				// if (ballPosition.x > 390 && IsKeyDown(KEY_SPACE))
+				// {
+				// 	inputAllowed = false;
+				// 	cooldownTimer = cooldownTime;
+				// 	while (ballPosition.x > 360)
+				// 	{
+				// 		ballPosition.x -= 0.5;
+				// 	}
+				// }
+				// if (cooldownTimer == 0)
+				// {
+				// 	inputAllowed = true;
+				// }
+				// if (IsKeyDown(KEY_RIGHT) && ballPosition.x < rightWall && inputAllowed)
+				// {
+				// 	if (IsKeyDown(KEY_SPACE))
+				// 	{
+				// 		ballPosition.x += jumpHeight; // higher jump if UP held
+				// 	}
+				// 	charSpriteFrame.x = 32.0f;
+				// 	charSpriteFrame.y = 0.0f;
+				// 	ballPosition.x += walkSpeed;
+				// }
+				// if (IsKeyDown(KEY_LEFT) && ballPosition.x > leftWall && inputAllowed)
+				// {
+				// 	if (IsKeyDown(KEY_SPACE))
+				// 	{
+				// 		ballPosition.x -= jumpHeight; // higher jump if UP held
+				// 	}
+				// 	else
+				// 	{
+				// 		ballPosition.x -= walkSpeed; // normal jump
+				// 	}
+				// 	ballPosition.x -= walkSpeed;
+				// }
+				// if (IsKeyDown(KEY_UP) && ballPosition.y > topWall && inputAllowed)
+				// {
+				// 	if (IsKeyDown(KEY_SPACE))
+				// 	{
+				// 		ballPosition.y -= jumpHeight; // higher jump if UP held
+				// 	}
+				// 	else
+				// 	{
+				// 		ballPosition.y -= walkSpeed; // normal jump
+				// 	}
+				// }
+				// if (IsKeyDown(KEY_DOWN) && ballPosition.y < bottomWall && inputAllowed)
+				// {
+				// 	if (IsKeyDown(KEY_SPACE))
+				// 	{
+				// 		ballPosition.y += jumpHeight; // higher jump if UP held
+				// 	}
+				// 	else
+				// 	{
+				// 		ballPosition.y += walkSpeed; // normal jump
+				// 	}
+				// }
+		//*****END OF DELETE SECTION */
 
-		if(ballPosition.x<0)
-		{
-			ballPosition.x += 1;
-		}
-		 if(cooldownTimer > 0) {
-        cooldownTimer -= GetFrameTime(); // GetFrameTime() returns seconds passed this frame
-        if(cooldownTimer < 0) cooldownTimer = 0;
-    }
-		if(ballPosition.x>390 && IsKeyDown(KEY_SPACE))
-		{
-			inputAllowed = false;
-			cooldownTimer = cooldownTime;
-			while(ballPosition.x>360){
-			ballPosition.x -= 0.5;
-			}
-			
-		} 
-		    if(cooldownTimer == 0) {
-        inputAllowed = true;
-    }
-		if (IsKeyDown(KEY_RIGHT) && ballPosition.x < rightWall && inputAllowed)
-		{
-				if (IsKeyDown(KEY_SPACE))
-			{
-				ballPosition.x += jumpHeight; // higher jump if UP held
-			}
-			else
-			{
-				ballPosition.x += walkSpeed; // normal jump
-			}
-			ballPosition.x += walkSpeed;
-		}
-		if (IsKeyDown(KEY_LEFT) && ballPosition.x > leftWall && inputAllowed)
-		{
-				if (IsKeyDown(KEY_SPACE))
-			{
-				ballPosition.x -= jumpHeight; // higher jump if UP held
-			}
-			else
-			{
-				ballPosition.x -= walkSpeed; // normal jump
-			}
-			ballPosition.x -= walkSpeed;
-		}
-		if (IsKeyDown(KEY_UP) && ballPosition.y > topWall && inputAllowed)
-		{
-				if (IsKeyDown(KEY_SPACE))
-			{
-				ballPosition.y -= jumpHeight; // higher jump if UP held
-			}
-			else
-			{
-				ballPosition.y -= walkSpeed; // normal jump
-			}
-			 
-		}
-		if (IsKeyDown(KEY_DOWN) && ballPosition.y < bottomWall && inputAllowed)
-		{
-				if (IsKeyDown(KEY_SPACE))
-			{
-				ballPosition.y += jumpHeight; // higher jump if UP held
-			}
-			else
-			{
-				ballPosition.y += walkSpeed; // normal jump
-			}
-			
-		}
-
-		// if (IsKeyPressed(KEY_A) && ballPosition.y == bottomWall && (ballPosition.y + 10.0f) > topWall)
-		// {
-
-		// 	if (IsKeyDown(KEY_UP))
-		// 	{
-		// 		ballPosition.y -= jumpHeight+100; // higher jump if UP held
-		// 	}
-		// 	else
-		// 	{
-		// 		ballPosition.y -= jumpHeight; // normal jump
-		// 	}
-
-		// }
+		
+		//logic to make ball animate while it moves
 
 		float t = GetTime(); // seconds since program start
 		Color flickerColor = (fmod(t, 0.5f) < 0.25f) ? GREEN : BLUE;
@@ -177,13 +168,10 @@ int main(void)
 		BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-
-		DrawText("move the ball with arrow keys", 10, 500, 20, BLACK);
-		DrawText(TextFormat("Ball X: %.2f", ballPosition.x), 10, 550, 20, BLACK);
-		DrawText(TextFormat("Ball Y: %.2f", ballPosition.y), 10, 600, 20, BLACK);
-		// ballColor = MAROON;
-
-		DrawCircleV(ballPosition, ballSize, ballColor);
+		mainCharacter.Update();
+		mainCharacter.Draw();
+		mainCharacter.Debug();
+		// DrawCircleV(ballPosition, ballSize, ballColor);
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
