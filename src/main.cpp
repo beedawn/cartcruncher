@@ -50,8 +50,7 @@ int main(void)
 	bool inputAllowed = true;
 	float cooldownTimer = 0;
 	float cooldownTime = 1.0f;
-	Texture2D characterTexture = LoadTexture("resources/char2.png");
-	// Define which part of the texture to draw (first frame, 32x32 pixels)
+// Define which part of the texture to draw (first frame, 32x32 pixels)
 	Rectangle charSpriteFrame = {0.0f, 0.0f, 32, 32};
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -143,7 +142,7 @@ int main(void)
 				// }
 		//*****END OF DELETE SECTION */
 
-		
+
 		//logic to make ball animate while it moves
 
 		float t = GetTime(); // seconds since program start
@@ -162,11 +161,9 @@ int main(void)
 			ballSize = 20;
 		}
 		//----------------------------------------------------------------------------------
-
 		// Draw
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
-
 		ClearBackground(RAYWHITE);
 		mainCharacter.Update();
 		mainCharacter.Draw();

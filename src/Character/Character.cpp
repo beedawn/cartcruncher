@@ -45,20 +45,17 @@ void Character::Update()
     // {
     // 	position.y += gravity;
     // }
-    if (position.y > 800)
+  
+    if (position.y > bottomWall)
     {
         position.y -= 1;
     }
-    if (position.y > 800)
-    {
-        position.y -= 1;
-    }
-    if (position.y < 400)
+    if (position.y < topWall)
     {
         position.y += 1;
     }
 
-    if (position.x < 0)
+    if (position.x < leftWall)
     {
         position.x += 1;
     }
